@@ -9,6 +9,9 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     ">
     
+    <bean id="testSpringCoreApp" name="testSpringCoreApp" class="rs.tijanap.gym.testModel.TestSpringCoreApp" />
+   
+    
     <bean id="restaurantBean" class="rs.tijanap.gym.testModel.Restaurant">
 		<!-- <property name="welcomeNote" value="Hello customer, welcome to our 
 			restaurant.."></property> -->

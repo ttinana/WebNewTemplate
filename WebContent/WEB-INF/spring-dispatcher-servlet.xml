@@ -11,7 +11,7 @@
 
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="rs.tijanap.gym.hellocontroller" />
+	<context:component-scan base-package="rs.tijanap.gym.hellocontroller" />	
 
 	<!-- 24. interceptor works only for the request that are listed : -->
 	<mvc:interceptors>

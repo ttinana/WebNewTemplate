@@ -8,5 +8,12 @@ public class Pasta implements IHotMeal {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Pasta []";
+	}
+	
+	
+
 
 }

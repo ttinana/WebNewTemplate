@@ -9,7 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,40 +28,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
-
 import rs.tijanap.gym.businesscontroller.LoginController;
 import rs.tijanap.gym.model.Student;
 import rs.tijanap.gym.model.Zaposleni;
+import rs.tijanap.gym.testModel.Pasta;
+import rs.tijanap.gym.testModel.Restaurant;
 import rs.tijanap.gym.testModel.TestSpringCoreApp;
 
 @Controller
-//@RequestMapping("/gym")
-public class HelloController {
+public class HelloController{
+	
+	private ApplicationContext context;
 
-	/*
-	 * @InitBinder public void InitBinder(WebDataBinder binder) { // ovako nece
-	 * preneti vrednost ovog parametra binder.setDisallowedFields(new String[] {
-	 * "studentMobile" });
-	 * 
-	 * // formating date in format yyyy***MM***dd SimpleDateFormat dateFormat =
-	 * new SimpleDateFormat("yyyy***MM***dd");
-	 * binder.registerCustomEditor(Date.class, "studentDOB", new
-	 * CustomDateEditor(dateFormat, false));
-	 * 
-	 * binder.registerCustomEditor(String.class, "studentName", new
-	 * StudentNameEditor());
-	 * 
-	 * }
-	 */
-
-	// http://localhost:8080/GymApp/gym/welcome
 	@RequestMapping("/*")
 	protected ModelAndView handleRequestWelcome(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
-		TestSpringCoreApp test = new TestSpringCoreApp();
+		
+		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+		TestSpringCoreApp test = context.getBean(TestSpringCoreApp.class);
 		test.test();
+		Restaurant restaurant = context.getBean("restaurantBean", Restaurant.class);
+		restaurant.setHotCheese(context.getBean(Pasta.class));
+		Pasta pasta = (Pasta) restaurant.getHotCheese();
+		//restaurant.throwSomeExceptionForAOP();
 
 		ModelAndView modelandview = new ModelAndView("index");
 		modelandview.addObject("welcomeMessage", "Dobrodošli");
@@ -410,5 +403,21 @@ public class HelloController {
 
 		return model;
 	}
+
+	/*
+	 * @InitBinder public void InitBinder(WebDataBinder binder) { // ovako nece
+	 * preneti vrednost ovog parametra binder.setDisallowedFields(new String[] {
+	 * "studentMobile" });
+	 * 
+	 * // formating date in format yyyy***MM***dd SimpleDateFormat dateFormat =
+	 * new SimpleDateFormat("yyyy***MM***dd");
+	 * binder.registerCustomEditor(Date.class, "studentDOB", new
+	 * CustomDateEditor(dateFormat, false));
+	 * 
+	 * binder.registerCustomEditor(String.class, "studentName", new
+	 * StudentNameEditor());
+	 * 
+	 * }
+	 */
 
 }
