@@ -8,16 +8,16 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import rs.tijanap.gym.testModel.User;
+import rs.tijanap.gym.testModel.MyUser;
 
 /**
  * @author tijana.pavicic
  *
  */
-public class UserRowMapper implements RowMapper<User> {
+public class UserRowMapper implements RowMapper<MyUser> {
 
 	@Override
-	public User mapRow(ResultSet resultSet, int line) throws SQLException {
+	public MyUser mapRow(ResultSet resultSet, int line) throws SQLException {
 		UserExtractor userExtractor = new UserExtractor();
 		return userExtractor.extractData(resultSet);
 	}

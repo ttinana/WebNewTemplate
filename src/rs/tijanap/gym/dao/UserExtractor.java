@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import org.springframework.dao.DataAccessException;
 
-import rs.tijanap.gym.testModel.User;
+import rs.tijanap.gym.testModel.MyUser;
 
 /**
  * @author tijana.pavicic
@@ -16,8 +16,8 @@ import rs.tijanap.gym.testModel.User;
  */
 public class UserExtractor {
 
-	public User extractData(ResultSet resultSet) throws SQLException, DataAccessException  {
-		User user = new User();
+	public MyUser extractData(ResultSet resultSet) throws SQLException, DataAccessException  {
+		MyUser user = new MyUser();
 
 		user.setUserId(resultSet.getInt(1));
 		user.setFirstName(resultSet.getString(2));

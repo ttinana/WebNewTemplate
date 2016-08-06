@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import rs.tijanap.gym.dao.dao.UserDao;
-import rs.tijanap.gym.testModel.User;
+import rs.tijanap.gym.testModel.MyUser;
 
 /**
  * @author tijana.pavicic
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#insertData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
-	public void insertData(User user) {
+	public void insertData(MyUser user) {
 		userdao.insertData(user);  
 
 	}
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#getUserList()
 	 */
 	@Override
-	public List<User> getUserList() {
+	public List<MyUser> getUserList() {
 		return userdao.getUserList();  
 	}
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#getUser(java.lang.String)
 	 */
 	@Override
-	public User getUser(String id) {
+	public MyUser getUser(String id) {
 		return userdao.getUser(id);  
 	}
 
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#updateData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
-	public void updateData(User user) {
+	public void updateData(MyUser user) {
 		userdao.updateData(user);  
 
 	}

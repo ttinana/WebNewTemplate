@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,22 +23,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import rs.tijanap.gym.businesscontroller.LoginController;
+import rs.tijanap.gym.dao.dao.UserDaoImpl;
 import rs.tijanap.gym.model.Student;
 import rs.tijanap.gym.model.Zaposleni;
+import rs.tijanap.gym.testModel.MyUser;
 import rs.tijanap.gym.testModel.Pasta;
 import rs.tijanap.gym.testModel.Restaurant;
 import rs.tijanap.gym.testModel.TestSpringCoreApp;
 
 @Controller
-public class HelloController{
-	
+public class HelloController {
+
 	private ApplicationContext context;
 
 	@RequestMapping("/*")
-	protected ModelAndView handleRequestWelcome(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected ModelAndView handleRequestWelcome(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		
 		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
 		TestSpringCoreApp test = context.getBean(TestSpringCoreApp.class);
@@ -45,7 +47,7 @@ public class HelloController{
 		Restaurant restaurant = context.getBean("restaurantBean", Restaurant.class);
 		restaurant.setHotCheese(context.getBean(Pasta.class));
 		Pasta pasta = (Pasta) restaurant.getHotCheese();
-		//restaurant.throwSomeExceptionForAOP();
+		// restaurant.throwSomeExceptionForAOP();
 		restaurant.returnNameOfTheRestaurant("Goranova sapa");
 
 		ModelAndView modelandview = new ModelAndView("index");
@@ -53,10 +55,33 @@ public class HelloController{
 
 		return modelandview;
 	}
-	
+
+	@RequestMapping("/generic")
+	protected ModelAndView handleRequestGeneric(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		ModelAndView modelandview = new ModelAndView("generic");
+		modelandview.addObject("welcomeMessage", "Caos Tijana");
+
+		return modelandview;
+	}
+
+	@RequestMapping("/elements")
+	protected ModelAndView handleRequestElements(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		List<MyUser> userList = new ArrayList<MyUser>();
+		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+		userList=context.getBean("userDao",UserDaoImpl.class).getUserList();
+		
+		ModelAndView modelandview = new ModelAndView("elements");
+		modelandview.addObject("msg", "Cao Gorane, cao Tijana");
+		modelandview.addObject("userList", userList);
+
+		return modelandview;
+	}
+
 	@RequestMapping("/index")
-	protected ModelAndView handleRequestIndex(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 
 		TestSpringCoreApp test = new TestSpringCoreApp();
 		test.test();
@@ -66,54 +91,26 @@ public class HelloController{
 
 		return modelandview;
 	}
-	
-	@RequestMapping("/generic")
-	protected ModelAndView handleRequestGeneric(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		TestSpringCoreApp test = new TestSpringCoreApp();
-		test.test();
-
-		ModelAndView modelandview = new ModelAndView("generic");
-		modelandview.addObject("welcomeMessage", "Caos Tijana");
-
-		return modelandview;
-	}
-	
-	@RequestMapping("/elements")
-	protected ModelAndView handleRequestElements(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		TestSpringCoreApp test = new TestSpringCoreApp();
-		test.test();
-
-		ModelAndView modelandview = new ModelAndView("elements");
-		modelandview.addObject("welcomeMessage", "Caos Tijana");
-
-		return modelandview;
-	}
 
 	@RequestMapping("/login")
 	// /${pageContext.request.contextPath}
-	protected ModelAndView handleRequestLogin(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected ModelAndView handleRequestLogin(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 
 		ModelAndView modelandview = new ModelAndView("LoginForm");
 		modelandview.addObject("welcomeMessage", "Dobrodošli");
 		modelandview.addObject("title", "Autentifikacija");
-		modelandview.addObject("subtitle",
-				"Unesite parametre za pristup sistemu: ");
+		modelandview.addObject("subtitle", "Unesite parametre za pristup sistemu: ");
 		return modelandview;
 	}
 
 	@RequestMapping(value = "/submitLOGINForm", method = RequestMethod.POST)
-	public ModelAndView submitLOGINForm(
-			@Validated @ModelAttribute("zaposleni") Zaposleni zaposleni,
+	public ModelAndView submitLOGINForm(@Validated @ModelAttribute("zaposleni") Zaposleni zaposleni,
 			BindingResult result) {
-				
-		LoginController tryLogin = new LoginController();		
+
+		LoginController tryLogin = new LoginController();
 		ModelAndView model;
-		if (result.hasErrors() ||  !(tryLogin.loginClan(zaposleni))) {
+		if (result.hasErrors() || !(tryLogin.loginClan(zaposleni))) {
 			model = new ModelAndView("LoginForm");
 			model.addObject("subtitle", "Pokušajte ponovo!");
 		} else {
@@ -131,8 +128,7 @@ public class HelloController{
 
 	// http://localhost:8080/GymApp/gym/hi
 	@RequestMapping("/hi")
-	protected ModelAndView handleRequestHi(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected ModelAndView handleRequestHi(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		TestSpringCoreApp test = new TestSpringCoreApp();
 		test.test();
@@ -146,8 +142,7 @@ public class HelloController{
 	// if i wont to send parameter
 	// http://localhost:8080/GymApp/gym/org/hi/tijana
 	@RequestMapping("/org/hi/{username}")
-	protected ModelAndView handleRequestForward(
-			@PathVariable("username") String name) {
+	protected ModelAndView handleRequestForward(@PathVariable("username") String name) {
 
 		ModelAndView modelandview = new ModelAndView("HelloPage");
 		modelandview.addObject("welcomeMessage", "Hi " + name);
@@ -157,15 +152,13 @@ public class HelloController{
 
 	// http://localhost:8080/GymApp/gym/aha/zdravo/tijana/pavicic
 	@RequestMapping("/aha/{greetingMessage}/{username}/{pass}")
-	protected ModelAndView handleRequestForwardMap(
-			@PathVariable Map<String, String> pathVars) {
+	protected ModelAndView handleRequestForwardMap(@PathVariable Map<String, String> pathVars) {
 		String greeting = pathVars.get("greetingMessage");
 		String name = pathVars.get("username");
 		String pass = pathVars.get("pass");
 
 		ModelAndView modelandview = new ModelAndView("HelloPage");
-		modelandview.addObject("welcomeMessage", greeting + " " + name + " "
-				+ pass);
+		modelandview.addObject("welcomeMessage", greeting + " " + name + " " + pass);
 
 		return modelandview;
 	}
@@ -184,11 +177,9 @@ public class HelloController{
 	// http://localhost:8080/GymApp/gym/admissionForm
 	@RequestMapping(value = "/admissionForm", method = RequestMethod.GET)
 	// @RequestMapping("/admissionForm")
-	protected ModelAndView getAdmissionForm(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected ModelAndView getAdmissionForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView model = new ModelAndView("AdmissionForm");
-		model.addObject("headermsg",
-				"STUDENT ADMISSION FORM FOR ENGINEERING COURSES");
+		model.addObject("headermsg", "STUDENT ADMISSION FORM FOR ENGINEERING COURSES");
 
 		return model;
 	}
@@ -199,37 +190,32 @@ public class HelloController{
 			@RequestParam("studentHobby") String hobby) {
 
 		ModelAndView model = new ModelAndView("AdmissionSuccess");
-		model.addObject("msg", "Details submitted by you:: Name: " + name
-				+ ", Hobby: " + hobby);
+		model.addObject("msg", "Details submitted by you:: Name: " + name + ", Hobby: " + hobby);
 
 		return model;
 	}
 
 	@RequestMapping(value = "/submitAdmissionForm2", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm2(
-			@RequestParam Map<String, String> reqPar) {
+	public ModelAndView submitAdmissionForm2(@RequestParam Map<String, String> reqPar) {
 
 		String name = reqPar.get("studentName");
 		String hobby = reqPar.get("studentHobby");
 
 		ModelAndView model = new ModelAndView("AdmissionSuccess");
-		model.addObject("msg", "Details submitted by you:: Name: " + name
-				+ ", Hobby: " + hobby);
+		model.addObject("msg", "Details submitted by you:: Name: " + name + ", Hobby: " + hobby);
 
 		return model;
 	}
 
 	@RequestMapping(value = "/submitAdmissionForm12", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm12(
-			@RequestParam Map<String, String> reqPar) {
+	public ModelAndView submitAdmissionForm12(@RequestParam Map<String, String> reqPar) {
 
 		String name = reqPar.get("studentName");
 		String hobby = reqPar.get("studentHobby");
 		Student student1 = new Student(name, hobby);
 
 		ModelAndView model = new ModelAndView("AdmissionSuccess");
-		model.addObject("headermsg", "Details submitted by you:: Name: " + name
-				+ ", Hobby: " + hobby);
+		model.addObject("headermsg", "Details submitted by you:: Name: " + name + ", Hobby: " + hobby);
 		model.addObject("student1", student1);
 
 		return model;
@@ -245,8 +231,7 @@ public class HelloController{
 	 */
 	// same as "/submitAdmissionForm" but with model atribute
 	@RequestMapping(value = "/submitAdmissionFormModel", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionFormModel(
-			@ModelAttribute("student1") Student student1) {
+	public ModelAndView submitAdmissionFormModel(@ModelAttribute("student1") Student student1) {
 
 		// String name = reqPar.get("studentName");
 		// String hobby = reqPar.get("studentHobby");
@@ -280,8 +265,7 @@ public class HelloController{
 	}
 
 	@RequestMapping(value = "/submitAdmissionFormMethod", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionFormMethod(
-			@ModelAttribute("student1") Student student1) {
+	public ModelAndView submitAdmissionFormMethod(@ModelAttribute("student1") Student student1) {
 
 		// String name = reqPar.get("studentName");
 		// String hobby = reqPar.get("studentHobby");
@@ -311,12 +295,9 @@ public class HelloController{
 
 	// without @ModelAttribute more code
 	@RequestMapping(value = "/submitAdmissionFormNoModel", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionFormNoModel(
-			@RequestParam("studentName") String studentName,
-			@RequestParam("studentHobby") String studentHobby,
-			@RequestParam("studentMobile") String studentMobile,
-			@RequestParam("studentDOB") String DOB,
-			@RequestParam("studentSkills") String[] studentSkills)
+	public ModelAndView submitAdmissionFormNoModel(@RequestParam("studentName") String studentName,
+			@RequestParam("studentHobby") String studentHobby, @RequestParam("studentMobile") String studentMobile,
+			@RequestParam("studentDOB") String DOB, @RequestParam("studentSkills") String[] studentSkills)
 			throws ParseException {
 
 		Long studentMobile1 = Long.valueOf(studentMobile).longValue();
@@ -328,8 +309,7 @@ public class HelloController{
 			skillsSetList.add(studentSkills[i]);
 		}
 
-		Student student = new Student(studentName, studentHobby,
-				studentMobile1, studentDOB, skillsSetList);
+		Student student = new Student(studentName, studentHobby, studentMobile1, studentDOB, skillsSetList);
 
 		ModelAndView model = new ModelAndView("AdmissionSuccess");
 		model.addObject("student1", student);
@@ -340,8 +320,7 @@ public class HelloController{
 
 	// with @ModelAttribute less code
 	@RequestMapping(value = "/submitAdmissionFormModel13", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionFormModel13(
-			@ModelAttribute("student1") Student student1) {
+	public ModelAndView submitAdmissionFormModel13(@ModelAttribute("student1") Student student1) {
 
 		ModelAndView model = new ModelAndView("AdmissionSuccess");
 		model.addObject("headermsg", "Congratulations!");
@@ -360,8 +339,7 @@ public class HelloController{
 
 	// with @ModelAttribute less code
 	@RequestMapping(value = "/submitAdmissionForm14", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm14(
-			@ModelAttribute("student1") Student student1, BindingResult result) {
+	public ModelAndView submitAdmissionForm14(@ModelAttribute("student1") Student student1, BindingResult result) {
 		ModelAndView model;
 		if (result.hasErrors()) {
 			model = new ModelAndView("AdmissionForm");
@@ -384,8 +362,7 @@ public class HelloController{
 	 * 
 	 */
 	@RequestMapping(value = "/submitAdmissionForm", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm(
-			@Validated @ModelAttribute("student1") Student student1,
+	public ModelAndView submitAdmissionForm(@Validated @ModelAttribute("student1") Student student1,
 			BindingResult result) {
 		ModelAndView model;
 		if (result.hasErrors()) {

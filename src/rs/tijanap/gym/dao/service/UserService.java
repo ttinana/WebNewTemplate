@@ -5,7 +5,7 @@ package rs.tijanap.gym.dao.service;
 
 import java.util.List;
 
-import rs.tijanap.gym.testModel.User;
+import rs.tijanap.gym.testModel.MyUser;
 
 /**
  * @author tijana.pavicic
@@ -13,10 +13,10 @@ import rs.tijanap.gym.testModel.User;
  */
 public interface UserService {
 	
-	 public void insertData(User user);  
-	 public List<User> getUserList();  
+	 public void insertData(MyUser user);  
+	 public List<MyUser> getUserList();  
 	 public void deleteData(String id);  
-	 public User getUser(String id);  
-	 public void updateData(User user);  
+	 public MyUser getUser(String id);  
+	 public void updateData(MyUser user);  
 
 }

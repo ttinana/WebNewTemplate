@@ -36,5 +36,7 @@
 	<bean id="pastaBean" class="rs.tijanap.gym.testModel.Pasta"></bean>
 
 	<bean id="trenerBean" class="rs.tijanap.gym.modelGym.Trener"></bean>
+	
+	<bean id="userDao" class="rs.tijanap.gym.dao.dao.UserDaoImpl"></bean>
     
     </beans>

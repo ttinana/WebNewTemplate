@@ -378,6 +378,14 @@
 			<version>5.1.26</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbyclient</artifactId>
+			<version>10.12.1.1</version>
+		</dependency>
+
+
 		<!-- slf4j and log4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

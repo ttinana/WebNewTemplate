@@ -7,26 +7,28 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import rs.tijanap.gym.dao.UserRowMapper;
-import rs.tijanap.gym.testModel.User;
+import rs.tijanap.gym.testModel.MyUser;
 
+@Component
 public class UserDaoImpl implements UserDao {
 	
 	 @Autowired  
 	 DataSource dataSource;  
 
 	@Override
-	public void insertData(User user) {
+	public void insertData(MyUser user) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<User> getUserList() {
-		List<User> userList = new ArrayList<User>();
+	public List<MyUser> getUserList() {
+		List<MyUser> userList = new ArrayList<MyUser>();
 
-		String sql = "select * from user";
+		String sql = "select * from myuser";
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		userList = jdbcTemplate.query(sql, new UserRowMapper());
@@ -34,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateData(User user) {
+	public void updateData(MyUser user) {
 		// TODO Auto-generated method stub
 
 	}
@@ -46,9 +48,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String id) {
-		  List<User> userList = new ArrayList<User>();  
-		  String sql = "select * from user where user_id= " + id;  
+	public MyUser getUser(String id) {
+		  List<MyUser> userList = new ArrayList<MyUser>();  
+		  String sql = "select * from myuser where UserId= " + id;  
 		  JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);  
 		  userList = jdbcTemplate.query(sql, new UserRowMapper());  
 		  return userList.get(0);  

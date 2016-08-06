@@ -11,10 +11,10 @@ import java.util.List;
 import rs.tijanap.gym.testModel.*;  
   
 public interface UserDao {  
- public void insertData(User user);  
- public List<User> getUserList();  
- public void updateData(User user);  
+ public void insertData(MyUser user);  
+ public List<MyUser> getUserList();  
+ public void updateData(MyUser user);  
  public void deleteData(String id);  
- public User getUser(String id);  
+ public MyUser getUser(String id);  
   
 }
