@@ -1,18 +1,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd ">
-	
+
 	<aop:aspectj-autoproxy />
-	
+
 	<bean name="loggingAspect" class="rs.tijanap.gym.aspect.LoggingAspect" />
-	
+
 	<aop:config>
-	
+		<aop:aspect id="logingAspect" ref="loggingAspect" >
+		<aop:pointcut expression="execution(* get*(..))" id="allGetters"/>
+		
+		<!-- <aop:around pointcut-ref="allGetters" method="myAroundAdvice"/> -->
+		
+		</aop:aspect>
+
 	</aop:config>
-	
-	
-	</beans>
+
+
+</beans>

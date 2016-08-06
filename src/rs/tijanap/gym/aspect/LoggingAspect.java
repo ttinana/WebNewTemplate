@@ -99,19 +99,48 @@ public class LoggingAspect {
 	public void beforeAllMethodsOfRestaurant() {
 	}
 
-	@Pointcut("execution(* get*(..))")
+	/*
+	 * This pointcut I have defined in xml just for practice
+	 * So I can leave it aout of here it will still work
+	 * 
+	 * @Pointcut("execution(* get*(..))")
 	public void allGetters() {
-	}
+	}*/
 
 	@Pointcut("execution(* set*(..))")
 	public void allSeters() {
 	}
+	
+	//@Around(value = "allAdvice()")
+	@Around("@annotation(rs.tijanap.gym.aspect.Loggable)")
+	public  Object myAroundAdvice(ProceedingJoinPoint proceedingJoinPoint){
+		Object returnValue =null;
+		try {
+			String msg = " Around advice";
+			logger.info("INFO BEFORE AROUND ADVICE " + msg);			
+			returnValue =proceedingJoinPoint.proceed();
+			logger.info("INFO AFTER AROUND ADVICE " + msg);
+		} catch (Throwable e) {	
+			String msg ="After Around Throwing";
+			logger.error("|ERROR|" +msg);			
+			e.printStackTrace();
+		}
+		return returnValue;
+	}
+	
+	public void loginPrimitiveAdviceToExplainAOPspring(){
+		System.out.println("login Primitive Advice To Explain AOP spring");
+	}
+	
+	/*@AfterThrowing(pointcut="args(name)", throwing="ex")
+	public void a(String name, RuntimeException ex){
+		System.out.println(ex.toString());
+	}*/
 
-	/*
-	 * @Before("args(pastaBean)") public void
-	 * allMethodsWithPastaArg(rs.tijanap.gym.testModel.Pasta pastaBean) {
-	 * System.out.println("hotmeal" + pastaBean.toString()); }
-	 */
+	/*@AfterReturning("args(name)")
+	public void allMethodsWithStringArg(String name) {
+		System.out.println("hotmeal" + name);
+	}*/
 
 	/*
 	 * wildcards:

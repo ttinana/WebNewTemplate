@@ -28,7 +28,7 @@ public class DayOfWeekBasedAccessInterceptor extends HandlerInterceptorAdapter {
 
 		Calendar cal = Calendar.getInstance();
 
-		int dayOfWeek = cal.get(cal.DAY_OF_WEEK); // getting the day on which
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); // getting the day on which
 													// request is made
 
 		if (dayOfWeek == 1) { // 1 means Sunday, 2 means Monday....7 means

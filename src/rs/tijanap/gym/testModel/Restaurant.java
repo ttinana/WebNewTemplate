@@ -2,6 +2,8 @@ package rs.tijanap.gym.testModel;
 
 import java.util.List;
 
+import rs.tijanap.gym.aspect.Loggable;
+
 public class Restaurant {
 
 	// String welcomeNote;
@@ -56,6 +58,10 @@ public class Restaurant {
 
 	public void displayWaitressNames() {
 		System.out.println("All waitress" + restaurantWaitressList);
+	}
+	@Loggable
+	public String returnNameOfTheRestaurant(String name){
+		return name;
 	}
 
 }

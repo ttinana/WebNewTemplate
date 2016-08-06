@@ -9,17 +9,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +46,7 @@ public class HelloController{
 		restaurant.setHotCheese(context.getBean(Pasta.class));
 		Pasta pasta = (Pasta) restaurant.getHotCheese();
 		//restaurant.throwSomeExceptionForAOP();
+		restaurant.returnNameOfTheRestaurant("Goranova sapa");
 
 		ModelAndView modelandview = new ModelAndView("index");
 		modelandview.addObject("welcomeMessage", "Dobrodošli");
