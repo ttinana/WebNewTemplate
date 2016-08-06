@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <bean id="restaurantBean" class="rs.tijanap.gym.testModel.Restaurant">
+		<!-- <property name="welcomeNote" value="Hello customer, welcome to our 
+			restaurant.."></property> -->
+
+		<constructor-arg ref="teaBean" />
+		<property name="hotCheese" ref="pastaBean"></property>
+		<property name="restaurantWaitressList">
+			<list>
+				<value> A </value>
+				<value> B </value>
+				<value> C </value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="teaBean" class="rs.tijanap.gym.testModel.Tea"></bean>
+
+	<bean id="fastFoodBean" class="rs.tijanap.gym.testModel.FastFood">
+		<property name="hotMeal" ref="pastaBean"></property>
+	</bean>
+
+	<bean id="pastaBean" class="rs.tijanap.gym.testModel.Pasta"></bean>
+
+	<bean id="trenerBean" class="rs.tijanap.gym.modelGym.Trener"></bean>
+    
+    </beans>
