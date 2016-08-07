@@ -3,11 +3,16 @@
  */
 package rs.tijanap.gym.testModel;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * @author tijana.pavicic
  *
  */
+@Entity
 public class MyUser {
+	@Id
 	private int userId;
 	private String firstName;
 	public MyUser() {

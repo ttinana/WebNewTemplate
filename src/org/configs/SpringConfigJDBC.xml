@@ -16,6 +16,25 @@
 		<!-- <property name="connectionCachingEnabled" value="true" /> -->
 	</bean>
 
+	<bean id="namedParameterJdbcTemplateImpl" name="namedParameterJdbcTemplateImpl"
+		class="rs.tijanap.gym.dao.dao.NamedParameterJdbcTemplateImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="rs.tijanap.gym.testModel" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect"> org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+
+		</property>
+	</bean>
+
+	<bean id="hibernateDaoImpl" class="rs.tijanap.gym.dao.dao.HibernateDaoImpl"></bean>
+
 	<!-- <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate"> 
 		<property name="dataSource" ref="dataSource" /> </bean> -->
 

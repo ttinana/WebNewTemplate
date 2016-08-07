@@ -39,13 +39,13 @@ public class UserDaoImpl implements UserDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	//@Override
+	//@Override // jdbcTemplate version
 	public void insertUser1(MyUser user) {
 		String sql = "insert into MyUser (UserId, FirstName) values (?,?)";
 		jdbcTemplate.update(sql, new Object[] { user.getUserId(), user.getFirstName() });
 
 	}
-	
+	/***********************************************/
 	@Override
 	public void insertUser(MyUser user) {
 		String sql = "insert into MyUser (UserId, FirstName) values (:id,:name)";

@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import rs.tijanap.gym.businesscontroller.LoginController;
+import rs.tijanap.gym.dao.dao.HibernateDaoImpl;
 import rs.tijanap.gym.dao.dao.UserDaoImpl;
 import rs.tijanap.gym.dao.service.UserServiceImpl;
+import rs.tijanap.gym.dao.service.UserServiceNPJTimpl;
 import rs.tijanap.gym.model.Student;
 import rs.tijanap.gym.model.Zaposleni;
 import rs.tijanap.gym.testModel.MyUser;
@@ -60,8 +62,15 @@ public class HelloController {
 	@RequestMapping("/generic")
 	protected ModelAndView handleRequestGeneric(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+
+		HibernateDaoImpl hds = context.getBean("hibernateDaoImpl", HibernateDaoImpl.class);
+		int count = hds.getUserCount();
+
 		ModelAndView modelandview = new ModelAndView("generic");
-		modelandview.addObject("welcomeMessage", "Caos Tijana");
+		modelandview.addObject("msg", "Caos Tijana");
+		modelandview.addObject("count", count);
+		
 
 		return modelandview;
 	}
@@ -74,11 +83,11 @@ public class HelloController {
 		UserServiceImpl userService = context.getBean("userService", UserServiceImpl.class);
 		List<MyUser> userList = userService.getUserList();
 		String name = userService.getUserName(3);
-		
+
 		// inserting another user
-		//userService.insertUser(new MyUser(9, "Slobodan"));
-		
-		//updating an existing user
+		// userService.insertUser(new MyUser(9, "Slobodan"));
+
+		// updating an existing user
 		userService.updateData(new MyUser(7, "Stenac moj"));
 
 		ModelAndView modelandview = new ModelAndView("elements");

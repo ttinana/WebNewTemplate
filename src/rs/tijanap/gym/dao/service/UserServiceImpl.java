@@ -15,64 +15,74 @@ import rs.tijanap.gym.testModel.MyUser;
  *
  */
 public class UserServiceImpl implements UserService {
-	
-	  
-	  
-	 UserDao userDao;  
+
+	private UserDao userDao;
 
 	public UserDao getUserDao() {
 		return userDao;
 	}
-	
-	@Autowired 
+
+	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see rs.tijanap.gym.dao.UserService#insertData(rs.tijanap.gym.testModel.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * rs.tijanap.gym.dao.UserService#insertData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
 	public void insertUser(MyUser user) {
-		userDao.insertUser(user);  
+		userDao.insertUser(user);
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see rs.tijanap.gym.dao.UserService#getUserList()
 	 */
 	@Override
 	public List<MyUser> getUserList() {
-		return userDao.getUserList();  
+		return userDao.getUserList();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see rs.tijanap.gym.dao.UserService#deleteData(java.lang.String)
 	 */
 	@Override
 	public void deleteData(String id) {
-		 userDao.deleteData(id);  
+		userDao.deleteData(id);
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see rs.tijanap.gym.dao.UserService#getUser(java.lang.String)
 	 */
 	@Override
 	public MyUser getUser(int id) {
-		return userDao.getUser(id);  
+		return userDao.getUser(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see rs.tijanap.gym.dao.UserService#updateData(rs.tijanap.gym.testModel.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * rs.tijanap.gym.dao.UserService#updateData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
 	public void updateData(MyUser user) {
-		userDao.updateData(user);  
+		userDao.updateData(user);
 
 	}
 
-	public String getUserName(int i) {		
+	public String getUserName(int i) {
 		return userDao.getUserName(i);
 	}
 

@@ -42,6 +42,8 @@
 
 					<header class="major special">
 						<h2>Generic</h2>
+						<p>${msg}</p>
+						<p>${count}</p>
 						<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
 					</header>
 
