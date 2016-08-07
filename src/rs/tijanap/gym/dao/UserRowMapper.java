@@ -17,7 +17,7 @@ import rs.tijanap.gym.testModel.MyUser;
 public class UserRowMapper implements RowMapper<MyUser> {
 
 	@Override
-	public MyUser mapRow(ResultSet resultSet, int line) throws SQLException {
+	public MyUser mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
 		UserExtractor userExtractor = new UserExtractor();
 		return userExtractor.extractData(resultSet);
 	}

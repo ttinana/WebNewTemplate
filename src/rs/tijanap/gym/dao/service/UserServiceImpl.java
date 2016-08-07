@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#insertData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
-	public void insertData(MyUser user) {
-		userDao.insertData(user);  
+	public void insertUser(MyUser user) {
+		userDao.insertUser(user);  
 
 	}
 

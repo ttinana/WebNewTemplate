@@ -74,6 +74,12 @@ public class HelloController {
 		UserServiceImpl userService = context.getBean("userService", UserServiceImpl.class);
 		List<MyUser> userList = userService.getUserList();
 		String name = userService.getUserName(3);
+		
+		// inserting another user
+		//userService.insertUser(new MyUser(9, "Slobodan"));
+		
+		//updating an existing user
+		userService.updateData(new MyUser(7, "Stenac moj"));
 
 		ModelAndView modelandview = new ModelAndView("elements");
 		modelandview.addObject("msg", "Cao Gorane, cao Tijana");

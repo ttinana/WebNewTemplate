@@ -13,7 +13,7 @@ import rs.tijanap.gym.testModel.MyUser;
  */
 public interface UserService {
 	
-	 public void insertData(MyUser user);  
+	 public void insertUser(MyUser user);  
 	 public List<MyUser> getUserList();  
 	 public void deleteData(String id);  
 	 public MyUser getUser(int id);  

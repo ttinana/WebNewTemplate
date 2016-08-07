@@ -8,22 +8,26 @@ package rs.tijanap.gym.testModel;
  *
  */
 public class MyUser {
-	private int UserId;
-	private String FirstName;
+	private int userId;
+	private String firstName;
 	public MyUser() {
 		super();
 	}
+	public MyUser(int userId, String firstName) {
+		this.userId=userId;
+		this.firstName=firstName;
+	}
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
 
 	
