@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import rs.tijanap.gym.businesscontroller.LoginController;
 import rs.tijanap.gym.dao.dao.UserDaoImpl;
+import rs.tijanap.gym.dao.service.UserServiceImpl;
 import rs.tijanap.gym.model.Student;
 import rs.tijanap.gym.model.Zaposleni;
 import rs.tijanap.gym.testModel.MyUser;
@@ -40,7 +41,7 @@ public class HelloController {
 	@RequestMapping("/*")
 	protected ModelAndView handleRequestWelcome(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
 		TestSpringCoreApp test = context.getBean(TestSpringCoreApp.class);
 		test.test();
@@ -68,13 +69,16 @@ public class HelloController {
 	@RequestMapping("/elements")
 	protected ModelAndView handleRequestElements(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		List<MyUser> userList = new ArrayList<MyUser>();
 		context = new ClassPathXmlApplicationContext("SpringConfig.xml");
-		userList=context.getBean("userDao",UserDaoImpl.class).getUserList();
-		
+
+		UserServiceImpl userService = context.getBean("userService", UserServiceImpl.class);
+		List<MyUser> userList = userService.getUserList();
+		String name = userService.getUserName(3);
+
 		ModelAndView modelandview = new ModelAndView("elements");
 		modelandview.addObject("msg", "Cao Gorane, cao Tijana");
 		modelandview.addObject("userList", userList);
+		modelandview.addObject("name", name);
 
 		return modelandview;
 	}

@@ -38,5 +38,9 @@
 	<bean id="trenerBean" class="rs.tijanap.gym.modelGym.Trener"></bean>
 	
 	<bean id="userDao" class="rs.tijanap.gym.dao.dao.UserDaoImpl"></bean>
+	
+	<bean id="userService" class="rs.tijanap.gym.dao.service.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
     
     </beans>

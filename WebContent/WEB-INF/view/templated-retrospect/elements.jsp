@@ -46,22 +46,20 @@
 				<h2>Elements</h2>
 				<p>${msg}</p>
 				<p>
-						
+
 					<c:if test="${not empty userList}">
 
 						<ul>
 							<c:forEach var="listValue" items="${userList}">
-							<ul>
-								<li>${listValue.getUserId()}, ${listValue.getFirstName()}</li>
-							</ul>
+								<ul>
+									<li>${listValue.getUserId()},${listValue.getFirstName()}</li>
+								</ul>
 							</c:forEach>
 						</ul>
-				
+
 					</c:if>
-
-				
-
 				</p>
+				<h1>${name} je opa!</h1>
 			</header>
 
 			<!-- Text -->

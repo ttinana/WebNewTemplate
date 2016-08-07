@@ -17,15 +17,24 @@ import rs.tijanap.gym.testModel.MyUser;
 public class UserServiceImpl implements UserService {
 	
 	  
-	 @Autowired  
-	 UserDao userdao;  
+	  
+	 UserDao userDao;  
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+	
+	@Autowired 
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	/* (non-Javadoc)
 	 * @see rs.tijanap.gym.dao.UserService#insertData(rs.tijanap.gym.testModel.User)
 	 */
 	@Override
 	public void insertData(MyUser user) {
-		userdao.insertData(user);  
+		userDao.insertData(user);  
 
 	}
 
@@ -34,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public List<MyUser> getUserList() {
-		return userdao.getUserList();  
+		return userDao.getUserList();  
 	}
 
 	/* (non-Javadoc)
@@ -42,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void deleteData(String id) {
-		 userdao.deleteData(id);  
+		 userDao.deleteData(id);  
 
 	}
 
@@ -50,8 +59,8 @@ public class UserServiceImpl implements UserService {
 	 * @see rs.tijanap.gym.dao.UserService#getUser(java.lang.String)
 	 */
 	@Override
-	public MyUser getUser(String id) {
-		return userdao.getUser(id);  
+	public MyUser getUser(int id) {
+		return userDao.getUser(id);  
 	}
 
 	/* (non-Javadoc)
@@ -59,8 +68,12 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void updateData(MyUser user) {
-		userdao.updateData(user);  
+		userDao.updateData(user);  
 
+	}
+
+	public String getUserName(int i) {		
+		return userDao.getUserName(i);
 	}
 
 }

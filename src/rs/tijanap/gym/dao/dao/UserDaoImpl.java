@@ -14,9 +14,25 @@ import rs.tijanap.gym.testModel.MyUser;
 
 @Component
 public class UserDaoImpl implements UserDao {
-	
-	 @Autowired  
-	 DataSource dataSource;  
+	DataSource dataSource;
+	JdbcTemplate jdbcTemplate;
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	@Override
 	public void insertData(MyUser user) {
@@ -27,11 +43,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<MyUser> getUserList() {
 		List<MyUser> userList = new ArrayList<MyUser>();
-
 		String sql = "select * from myuser";
-
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		userList = jdbcTemplate.query(sql, new UserRowMapper());
+		// userList = jdbcTemplate.queryForList(sql, MyUser.class);
 		return userList;
 	}
 
@@ -48,12 +62,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public MyUser getUser(String id) {
-		  List<MyUser> userList = new ArrayList<MyUser>();  
-		  String sql = "select * from myuser where UserId= " + id;  
-		  JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);  
-		  userList = jdbcTemplate.query(sql, new UserRowMapper());  
-		  return userList.get(0);  
+	public MyUser getUser(int id) {
+		List<MyUser> userList = new ArrayList<MyUser>();
+		String sql = "select * from myuser where UserId= ?";
+		userList = jdbcTemplate.query(sql,  new Object[] { id }, new UserRowMapper());
+		return userList.get(0);
+	}
+
+	@Override
+	public String getUserName(int id) {
+		String sql = "select firstname from myuser where UserId= ?";
+		String name = jdbcTemplate.queryForObject(sql, new Object[] { id }, String.class);
+		return name;
 	}
 
 }
